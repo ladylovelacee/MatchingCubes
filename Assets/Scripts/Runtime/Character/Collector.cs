@@ -85,14 +85,25 @@ public class Collector : MonoBehaviour
     private void OrderById()
     {
         List<IStackable> orderedList = stacks.OrderBy(x => x.StackID).ToList();
-        UpdateLayout(orderedList);
+        UpdateLayout(GetStacksIDs(orderedList));
     }
 
-    private void UpdateLayout(List<IStackable> stackables)
+    private List<string> GetStacksIDs(List<IStackable> stackables)
+    {
+        List<string> tempList = new List<string>();
+        for (int i = 0; i < stackables.Count; i++)
+        {
+            tempList.Add(stackables[i].StackID);
+        }
+
+        return tempList;
+    }
+
+    private void UpdateLayout(List<string> stackables)
     {
         for (int i = 0; i < stackables.Count; i++)
         {
-            stacks[i].StackID = stackables[i].StackID;
+            stacks[i].StackID = stackables[i];
         }
     }
 }
