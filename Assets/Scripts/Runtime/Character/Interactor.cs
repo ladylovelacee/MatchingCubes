@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    Character _character;
+    public Character Character => (_character == null) ? _character = GetComponent<Character>() : _character;
+
     private void OnTriggerEnter(Collider other)
     {
         IInteractible interactible = other.GetComponent<IInteractible>();

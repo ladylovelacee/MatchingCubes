@@ -6,14 +6,32 @@ using UnityEngine.Events;
 public class StackEvent : UnityEvent<IStackable> { }
 public class Collector : MonoBehaviour
 {
+    #region Properties
     Character _character;
     Character Character => (_character == null) ? _character = GetComponent<Character>() : _character;
 
     Holder _holder;
     Holder Holder => (_holder == null) ? _holder = GetComponentInChildren<Holder>() : _holder;
+    #endregion
 
+    #region Private Field
     List<IStackable> stacks = new List<IStackable>();
-    
+    #endregion
+
+    #region Methods From Monobehaviour
+    private void OnEnable()
+    {
+        Character.OnStacksSort.AddListener(OrderById);
+    }
+
+    private void OnDisable()
+    {
+        Character.OnStacksSort.RemoveListener(OrderById);
+    }
+
+    #endregion
+
+    #region Public Methods
     public void AddCollectible(IStackable stack)
     {
         if (stacks.Contains(stack))
@@ -42,7 +60,9 @@ public class Collector : MonoBehaviour
         stack.StackTransform.parent = Holder.transform;
         stack.StackTransform.localPosition = Vector3.zero;     
     }
+    #endregion
 
+    #region Private Methods
     private void MoveUp(IStackable stack)
     {
         for (int i = 0; i < stacks.Count; i++)
@@ -106,4 +126,5 @@ public class Collector : MonoBehaviour
             stacks[i].StackID = stackables[i];
         }
     }
+    #endregion
 }
