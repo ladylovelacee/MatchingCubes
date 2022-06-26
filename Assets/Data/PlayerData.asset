@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   CharacterMovementData:
-    ForwardSpeed: 6
+    ForwardSpeed: 5
     SlideSpeed: 8
