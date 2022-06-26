@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class Stack : CollectibleBase, IStackable
 {
@@ -8,19 +7,35 @@ public class Stack : CollectibleBase, IStackable
 
     [SerializeField]
     private string stackID;
-    public string StackID => stackID;
+    public string StackID { get => stackID; set => SetStackID(value); }
 
     public Vector3 StackSize => Renderer.bounds.size;
 
     public Transform StackTransform => transform;
 
+    MaterialPropertyBlock propertyBlock;
+
     Tweens tween;
-    StackData stackData;
+    [SerializeField]
+    StackDataHolder stackData;
 
     private void Start()
     {
         tween = new Tweens(transform);
-        stackData = new StackData();
+        ReloadCube();
+    }
+    
+    private void SetStackID(string ID)
+    {
+        stackID = ID;
+        ReloadCube();
+    }
+
+    private void ReloadCube()
+    {
+        propertyBlock = new MaterialPropertyBlock();
+        propertyBlock.SetColor("_Color", stackData.GetColorByID(StackID));
+        Renderer.SetPropertyBlock(propertyBlock);
     }
 
     public override void Collect()
@@ -28,14 +43,6 @@ public class Stack : CollectibleBase, IStackable
         curCollector.AddCollectible(this);
         curCollector.SetParentToHolder(this);
 
-        tween.PunchScaleTween(stackData.Punch, stackData.Duration);
+        tween.PunchScaleTween(stackData.StackTweenData.Punch, stackData.StackTweenData.Duration);
     }
-}
-
-[Serializable]
-public class StackData
-{
-    [Header("Punch Tween Values")]
-    public float Punch = .2f;
-    public float Duration = .5f;
 }

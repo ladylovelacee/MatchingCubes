@@ -37,13 +37,13 @@ public class Collector : MonoBehaviour
         if (!stacks.Contains(stack))
             return;
 
-        UpdateLayout(stack);
+        MoveUp(stack);
 
         stack.StackTransform.parent = Holder.transform;
         stack.StackTransform.localPosition = Vector3.zero;     
     }
 
-    private void UpdateLayout(IStackable stack)
+    private void MoveUp(IStackable stack)
     {
         for (int i = 0; i < stacks.Count; i++)
         {
@@ -77,7 +77,22 @@ public class Collector : MonoBehaviour
     {
         foreach (IStackable stack in matches)
         {
+            RemoveCollectible(stack);
             Destroy(stack.StackTransform.gameObject);
+        }
+    }
+
+    private void OrderById()
+    {
+        List<IStackable> orderedList = stacks.OrderBy(x => x.StackID).ToList();
+        UpdateLayout(orderedList);
+    }
+
+    private void UpdateLayout(List<IStackable> stackables)
+    {
+        for (int i = 0; i < stackables.Count; i++)
+        {
+            stacks[i].StackID = stackables[i].StackID;
         }
     }
 }
