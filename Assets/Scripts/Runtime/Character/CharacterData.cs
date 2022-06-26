@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterData", menuName = "Character", order = 1)]
+[CreateAssetMenu(fileName = "CharacterData", menuName = "ScriptableObjects/Character", order = 1)]
 public class CharacterData : ScriptableObject
 {
     public CharacterMovementData CharacterMovementData = new CharacterMovementData();    
