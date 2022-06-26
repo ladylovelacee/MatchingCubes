@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +21,7 @@ public class Collector : MonoBehaviour
 
         stacks.Add(stack);
         Character.OnStackCollected.Invoke(stack);
+        CheckLastTriple();
     }
 
     public void RemoveCollectible(IStackable stack)
@@ -46,6 +48,36 @@ public class Collector : MonoBehaviour
         for (int i = 0; i < stacks.Count; i++)
         {
             stacks[i].StackTransform.position += (Vector3.up * stack.StackSize.y);
+        }
+    }
+
+    private const int MATCH_COUNT = 3;
+    private void CheckLastTriple()
+    {
+        int stackCount = stacks.Count;
+        if (stacks.Count < MATCH_COUNT)
+            return;
+
+        List<IStackable> temp = new List<IStackable>();
+        temp.Add(stacks.Last());
+
+        for (int i = 2; i <= MATCH_COUNT; i++)
+        {
+            if (stacks[stacks.Count - i].StackID == temp[temp.Count - 1].StackID)
+                temp.Add(stacks[stacks.Count - i]);
+            else
+                break;
+        }
+
+        if (temp.Count == MATCH_COUNT)
+            DestroyMatches(temp);
+    }
+
+    private void DestroyMatches(List<IStackable> matches)
+    {
+        foreach (IStackable stack in matches)
+        {
+            Destroy(stack.StackTransform.gameObject);
         }
     }
 }
