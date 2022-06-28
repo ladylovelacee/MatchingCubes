@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class StackEvent : UnityEvent<IStackable> { }
-public class Collector : MonoBehaviour
+public class Collector : MonoBehaviour, IDamageable
 {
     #region Properties
     Character _character;
@@ -134,6 +134,16 @@ public class Collector : MonoBehaviour
         {
             stacks[i].StackID = stackables[i];
         }
+    }
+    #endregion
+
+    #region Methods From Interfaces
+    public void TakeDamage()
+    {
+        stacks.Last().StackTransform.SetParent(Holder.mover.transform);
+        RemoveCollectible(stacks.Last());
+        if (stacks.Count == 0)
+            Debug.Log("Level fail");
     }
     #endregion
 }

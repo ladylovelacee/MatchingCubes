@@ -5,7 +5,8 @@ public abstract class CollectibleBase : InteractibleBase, ICollectible
 
     public override void Interact()
     {
-        if (!TryReachToCollector())
+        curCollector = TryReachToObj<Collector>();
+        if (curCollector == null)
             return;
 
         Collect(curCollector);
@@ -24,17 +25,4 @@ public abstract class CollectibleBase : InteractibleBase, ICollectible
     }
 
     public abstract void Collect();
-
-    private bool TryReachToCollector()
-    {
-        Collector collector = curInteractor.gameObject.GetComponent<Collector>();
-        if (collector == null)
-            curInteractor.gameObject.GetComponentInChildren<Collector>();
-
-        if(collector == null)
-            return false;
-
-        curCollector = collector;
-        return true;
-    }
 }

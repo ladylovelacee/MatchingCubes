@@ -25,4 +25,16 @@ public abstract class InteractibleBase : MonoBehaviour, IInteractible
 
         isInteracted = false;
     }
+
+    protected T TryReachToObj<T>()
+    {
+        T callObj = curInteractor.gameObject.GetComponent<T>();
+        if (callObj == null)
+            curInteractor.gameObject.GetComponentInChildren<T>();
+
+        if (callObj == null)
+            return default;
+
+        return callObj;
+    }
 }
