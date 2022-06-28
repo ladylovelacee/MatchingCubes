@@ -22,11 +22,13 @@ public class Collector : MonoBehaviour
     private void OnEnable()
     {
         Character.OnStacksSort.AddListener(OrderById);
+        Character.OnStacksShuffle.AddListener(ShuffleStacks);
     }
 
     private void OnDisable()
     {
         Character.OnStacksSort.RemoveListener(OrderById);
+        Character.OnStacksShuffle.RemoveListener(ShuffleStacks);
     }
 
     #endregion
@@ -106,6 +108,13 @@ public class Collector : MonoBehaviour
     {
         List<IStackable> orderedList = stacks.OrderBy(x => x.StackID).ToList();
         UpdateLayout(GetStacksIDs(orderedList));
+    }
+
+    private void ShuffleStacks()
+    {
+        List<IStackable> shuffledList = new List<IStackable>(stacks);
+        shuffledList.Shuffle();
+        UpdateLayout(GetStacksIDs(shuffledList));
     }
 
     private List<string> GetStacksIDs(List<IStackable> stackables)
