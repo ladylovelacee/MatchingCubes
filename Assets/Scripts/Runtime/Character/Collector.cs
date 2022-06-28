@@ -142,7 +142,7 @@ public class Collector : MonoBehaviour, IDamageable
     {
         stacks.Last().StackTransform.SetParent(Holder.mover.transform);
         RemoveCollectible(stacks.Last());
-        if (stacks.Count == 0)
+        if (stacks.Count <= 0)
             Debug.Log("Level fail");
     }
     #endregion
