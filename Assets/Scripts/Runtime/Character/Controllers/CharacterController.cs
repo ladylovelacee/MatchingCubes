@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterPhysicsController : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     Rigidbody _rigidbody;
     Rigidbody CharacterRb => (_rigidbody == null) ? _rigidbody = GetComponent<Rigidbody>() : _rigidbody;
