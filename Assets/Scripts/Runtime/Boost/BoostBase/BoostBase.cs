@@ -17,7 +17,7 @@ public abstract class BoostBase : InteractibleBase, IBoost
         Use();
     }
 
-    public void Interup()
+    public virtual void Interup()
     {
         StopAllCoroutines();
         Destroy(this);

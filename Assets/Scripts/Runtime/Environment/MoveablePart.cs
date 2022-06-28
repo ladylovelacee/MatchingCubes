@@ -30,13 +30,13 @@ public class MoveablePart : MonoBehaviour
         moveSpeed = speed;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MoveBackward();
     }
 
     private void MoveBackward()
     {
-        transform.position -= Vector3.forward * moveSpeed * Time.deltaTime;
+        transform.position -= Vector3.forward * moveSpeed * Time.fixedDeltaTime;
     }
 }

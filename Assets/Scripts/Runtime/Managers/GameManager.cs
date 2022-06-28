@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameData
 {
     public float FeverTimer;
-    public float SpeederTimer;
+    public float SpeederTimer = 5;
 }
 
 [System.Serializable]

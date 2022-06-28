@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2705159202052026897, guid: 9104f47ac8cc4c44890a0380d2fcebcb, type: 3}
       propertyPath: m_Name
-      value: Boost
+      value: SpeedBoost
       objectReference: {fileID: 0}
     - target: {fileID: 2705159202052026899, guid: 9104f47ac8cc4c44890a0380d2fcebcb, type: 3}
       propertyPath: m_RootOrder
@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705159202052026899, guid: 9104f47ac8cc4c44890a0380d2fcebcb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.94
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705159202052026899, guid: 9104f47ac8cc4c44890a0380d2fcebcb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -74,3 +74,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f12037d4f891a42ac709442e0a4595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 15

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpeederBoost : BoostBase
 {
+    [SerializeField]
     private float acceleration = 8f;
     public override IEnumerator ExecuteCo()
     {
@@ -15,7 +16,12 @@ public class SpeederBoost : BoostBase
 
     public override void Use()
     {
-        SpeederBoost boost = curInteractor.Character.gameObject.AddComponent<SpeederBoost>();
-        boost.Execute();
+        Execute();
+    }
+
+    public override void Interup()
+    {
+        EventManager.SetDefaultSpeed.Invoke();
+        base.Interup();
     }
 }
