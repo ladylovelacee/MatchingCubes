@@ -9,17 +9,30 @@ public class MoveablePart : MonoBehaviour
 
     private void Awake()
     {
-        SetValues();
+        ResetSpeed();
+        EventManager.OnSpeedChange.AddListener(SetMoveSpeed);
+        EventManager.SetDefaultSpeed.AddListener(ResetSpeed);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.OnSpeedChange.RemoveListener(SetMoveSpeed);
+        EventManager.SetDefaultSpeed.RemoveListener(ResetSpeed);
+    }
+
+    private void ResetSpeed()
+    {
+        moveSpeed = characterData.CharacterMovementData.ForwardSpeed;
+    }
+
+    private void SetMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
     }
 
     private void Update()
     {
         MoveBackward();
-    }
-
-    private void SetValues()
-    {
-        moveSpeed = characterData.CharacterMovementData.ForwardSpeed;
     }
 
     private void MoveBackward()
