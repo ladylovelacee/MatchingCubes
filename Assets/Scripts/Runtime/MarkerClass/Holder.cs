@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class Holder : MonoBehaviour
 {
-    public MoveablePart mover;
     // Marker class
 }

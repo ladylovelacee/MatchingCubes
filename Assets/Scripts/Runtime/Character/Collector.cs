@@ -41,6 +41,7 @@ public class Collector : MonoBehaviour, IDamageable
 
         stacks.Add(stack);
         Character.OnStackCollected.Invoke(stack);
+        Character.OnLastStackUpdate.Invoke(stack);
         CheckLastTriple();
     }
 
@@ -50,6 +51,7 @@ public class Collector : MonoBehaviour, IDamageable
             return;
 
         stacks.Remove(stack);
+        Character.OnLastStackUpdate.Invoke(GetLastStack());
     }
 
     public void SetParentToHolder(IStackable stack)
@@ -65,6 +67,13 @@ public class Collector : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Methods
+    private IStackable GetLastStack()
+    {
+        if (stacks.Any())
+            return stacks.Last();
+        else
+            return null;
+    }
     private void MoveUp(IStackable stack)
     {
         for (int i = 0; i < stacks.Count; i++)
@@ -149,7 +158,7 @@ public class Collector : MonoBehaviour, IDamageable
     #region Methods From Interfaces
     public void TakeDamage()
     {
-        stacks.Last().StackTransform.SetParent(Holder.mover.transform);
+        stacks.Last().StackTransform.SetParent(GameManager.Instance.GameData.Mover);
         RemoveCollectible(stacks.Last());
         if (stacks.Count <= 0)
             Debug.Log("Level fail");

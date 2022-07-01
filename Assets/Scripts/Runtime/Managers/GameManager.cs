@@ -5,6 +5,7 @@ public class GameData
 {
     public float FeverTimer;
     public float SpeederTimer = 5;
+    public Transform Mover;
 }
 
 [System.Serializable]
