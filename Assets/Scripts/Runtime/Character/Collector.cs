@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class StackEvent : UnityEvent<IStackable> { }
-public class Collector : MonoBehaviour
+public class Collector : MonoBehaviour, IDamageable
 {
     #region Properties
     Character _character;
@@ -41,6 +41,7 @@ public class Collector : MonoBehaviour
 
         stacks.Add(stack);
         Character.OnStackCollected.Invoke(stack);
+        Character.OnLastStackUpdate.Invoke(stack);
         CheckLastTriple();
     }
 
@@ -50,6 +51,7 @@ public class Collector : MonoBehaviour
             return;
 
         stacks.Remove(stack);
+        Character.OnLastStackUpdate.Invoke(GetLastStack());
     }
 
     public void SetParentToHolder(IStackable stack)
@@ -65,6 +67,13 @@ public class Collector : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private IStackable GetLastStack()
+    {
+        if (stacks.Any())
+            return stacks.Last();
+        else
+            return null;
+    }
     private void MoveUp(IStackable stack)
     {
         for (int i = 0; i < stacks.Count; i++)
@@ -94,6 +103,13 @@ public class Collector : MonoBehaviour
         if (temp.Count == MATCH_COUNT)
             DestroyMatches(temp);
     }
+    private void CheckAllTriples()
+    {
+        for (int i = 0; i < stacks.Count; i++)
+        {
+            CheckLastTriple();
+        }
+    }
 
     private void DestroyMatches(List<IStackable> matches)
     {
@@ -108,6 +124,7 @@ public class Collector : MonoBehaviour
     {
         List<IStackable> orderedList = stacks.OrderBy(x => x.StackID).ToList();
         UpdateLayout(GetStacksIDs(orderedList));
+        CheckAllTriples();
     }
 
     private void ShuffleStacks()
@@ -115,6 +132,7 @@ public class Collector : MonoBehaviour
         List<IStackable> shuffledList = new List<IStackable>(stacks);
         shuffledList.Shuffle();
         UpdateLayout(GetStacksIDs(shuffledList));
+        CheckAllTriples();
     }
 
     private List<string> GetStacksIDs(List<IStackable> stackables)
@@ -134,6 +152,16 @@ public class Collector : MonoBehaviour
         {
             stacks[i].StackID = stackables[i];
         }
+    }
+    #endregion
+
+    #region Methods From Interfaces
+    public void TakeDamage()
+    {
+        stacks.Last().StackTransform.SetParent(GameManager.Instance.GameData.Mover);
+        RemoveCollectible(stacks.Last());
+        if (stacks.Count <= 0)
+            Debug.Log("Level fail");
     }
     #endregion
 }

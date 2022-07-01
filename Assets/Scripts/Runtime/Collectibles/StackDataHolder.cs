@@ -35,4 +35,7 @@ public class StackTweenData
     [Header("Punch Tween Values")]
     public float Punch = .2f;
     public float Duration = .5f;
+
+    [Header("Melt Tween Values")]
+    public float MeltDuration = 1f;
 }

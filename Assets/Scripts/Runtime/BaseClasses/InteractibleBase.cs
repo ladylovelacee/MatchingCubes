@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class InteractibleBase : MonoBehaviour, IInteractible
 {
-    private bool isInteracted = false;
+    protected bool isInteracted = false;
     protected Interactor curInteractor;
 
     public virtual void Interact(Interactor interactor)
@@ -24,5 +24,17 @@ public abstract class InteractibleBase : MonoBehaviour, IInteractible
             return;
 
         isInteracted = false;
+    }
+
+    protected T TryReachToObj<T>()
+    {
+        T callObj = curInteractor.gameObject.GetComponent<T>();
+        if (callObj == null)
+            curInteractor.gameObject.GetComponentInChildren<T>();
+
+        if (callObj == null)
+            return default;
+
+        return callObj;
     }
 }

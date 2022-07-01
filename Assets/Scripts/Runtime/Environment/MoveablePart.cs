@@ -10,6 +10,7 @@ public class MoveablePart : MonoBehaviour
     private void Awake()
     {
         ResetSpeed();
+        GameManager.Instance.GameData.Mover = transform;
         EventManager.OnSpeedChange.AddListener(SetMoveSpeed);
         EventManager.SetDefaultSpeed.AddListener(ResetSpeed);
     }

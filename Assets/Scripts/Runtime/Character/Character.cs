@@ -5,6 +5,8 @@ public class Character : MonoBehaviour
 {
     #region Local Events
     [HideInInspector]
+    public StackEvent OnLastStackUpdate = new StackEvent();
+    [HideInInspector]
     public StackEvent OnStackCollected = new StackEvent();
     [HideInInspector]
     public UnityEvent OnStacksSort = new UnityEvent();    

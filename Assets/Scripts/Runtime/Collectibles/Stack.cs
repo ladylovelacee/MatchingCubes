@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Stack : CollectibleBase, IStackable
+public class Stack : CollectibleBase, IStackable, IMeltable
 {
     Renderer _renderer;
     Renderer Renderer => _renderer == null ? _renderer = GetComponentInChildren<Renderer>() : _renderer;
@@ -44,5 +44,19 @@ public class Stack : CollectibleBase, IStackable
         curCollector.SetParentToHolder(this);
 
         tween.PunchScaleTween(stackData.StackTweenData.Punch, stackData.StackTweenData.Duration);
+    }
+
+    public void Melt()
+    {
+        tween.CompleteCurrentTween();
+
+        Vector3 meltScale = transform.localScale;
+        meltScale.y = 0;
+
+        tween.ScaleTween(meltScale, stackData.StackTweenData.MeltDuration, default, () =>
+        {
+            transform.localScale = Vector3.zero;
+            curCollector.RemoveCollectible(this);
+        });
     }
 }
