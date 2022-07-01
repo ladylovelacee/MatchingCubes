@@ -94,6 +94,13 @@ public class Collector : MonoBehaviour, IDamageable
         if (temp.Count == MATCH_COUNT)
             DestroyMatches(temp);
     }
+    private void CheckAllTriples()
+    {
+        for (int i = 0; i < stacks.Count; i++)
+        {
+            CheckLastTriple();
+        }
+    }
 
     private void DestroyMatches(List<IStackable> matches)
     {
@@ -108,6 +115,7 @@ public class Collector : MonoBehaviour, IDamageable
     {
         List<IStackable> orderedList = stacks.OrderBy(x => x.StackID).ToList();
         UpdateLayout(GetStacksIDs(orderedList));
+        CheckAllTriples();
     }
 
     private void ShuffleStacks()
@@ -115,6 +123,7 @@ public class Collector : MonoBehaviour, IDamageable
         List<IStackable> shuffledList = new List<IStackable>(stacks);
         shuffledList.Shuffle();
         UpdateLayout(GetStacksIDs(shuffledList));
+        CheckAllTriples();
     }
 
     private List<string> GetStacksIDs(List<IStackable> stackables)
