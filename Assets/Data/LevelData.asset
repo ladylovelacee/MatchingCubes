@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   Levels:
+  - LoadLevelID: Level01
   - LoadLevelID: LevelDevelopment
