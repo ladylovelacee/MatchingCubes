@@ -52,7 +52,8 @@ public class CharacterController : MonoBehaviour
             }
 
             finalTouchX = Mathf.Clamp(finalTouchX, minXPos, maxXPos);
-            CharacterRb.position = new Vector3(finalTouchX, transform.position.y, transform.position.z);
+            Vector3 newPos = new Vector3(finalTouchX, transform.position.y, transform.position.z);
+            CharacterRb.position = Vector3.Lerp(CharacterRb.position, newPos, .5f);
 
             firstTouchPosition = Input.mousePosition;
         }
@@ -67,6 +68,7 @@ public class CharacterController : MonoBehaviour
     void ResetInputValues()
     {
         CharacterRb.velocity = new Vector3(0f, CharacterRb.velocity.y, CharacterRb.velocity.z);
+        CharacterRb.angularVelocity = new Vector3(0f, CharacterRb.angularVelocity.y, CharacterRb.angularVelocity.z);
         firstTouchPosition = Vector2.zero;
         finalTouchX = 0f;
         curTouchPosition = Vector2.zero;
