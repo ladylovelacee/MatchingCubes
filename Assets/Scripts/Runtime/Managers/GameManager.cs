@@ -18,26 +18,21 @@ public class PlayerData
 
 public class GameManager : Singleton<GameManager>
 {
-    private bool isGameStarted;
-    public bool IsGameStarted { get { return isGameStarted; } private set { isGameStarted = value; } }
-
     public GameData GameData = new GameData();
-
-    public void StartGame()
+    
+    private PlayerData playerData;
+    public PlayerData PlayerData
     {
-        if (IsGameStarted)
-            return;
+        get
+        {
+            if (playerData == null)
+            {
+                playerData = SaveLoad.GetObject<PlayerData>(PlayerPrefsKeys.PlayerData, new PlayerData());
+                if (playerData == null)
+                    playerData = new PlayerData();
+            }
 
-        IsGameStarted = true;
-        EventManager.OnGameStart.Invoke();
-    }
-
-    public void EndGame()
-    {
-        if (!IsGameStarted)
-            return;
-
-        IsGameStarted = false;
-        EventManager.OnGameEnd.Invoke();
+            return playerData;
+        }
     }
 }
