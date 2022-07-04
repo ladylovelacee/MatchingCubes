@@ -17,6 +17,12 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
+        if (Managers.Instance == null)
+            return;
+
+        if (!LevelManager.Instance.IsLevelStarted)
+            return;
+
         HandleMovementWithSlide();
     }
 
@@ -45,8 +51,8 @@ public class CharacterController : MonoBehaviour
                 finalTouchX = (transform.position.x + (touchDelta.x * sensitivityMultiplier));
             }
 
+            finalTouchX = Mathf.Clamp(finalTouchX, minXPos, maxXPos);
             CharacterRb.position = new Vector3(finalTouchX, transform.position.y, transform.position.z);
-            CharacterRb.position = new Vector3(Mathf.Clamp(CharacterRb.position.x, minXPos, maxXPos), CharacterRb.position.y, CharacterRb.position.z);
 
             firstTouchPosition = Input.mousePosition;
         }

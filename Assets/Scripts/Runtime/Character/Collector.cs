@@ -158,10 +158,14 @@ public class Collector : MonoBehaviour, IDamageable
     #region Methods From Interfaces
     public void TakeDamage()
     {
+        if (!stacks.Any())
+        {
+            LevelManager.Instance.ReloadLevel();
+            return;
+        }
+
         stacks.Last().StackTransform.SetParent(GameManager.Instance.GameData.Mover);
         RemoveCollectible(stacks.Last());
-        if (stacks.Count <= 0)
-            Debug.Log("Level fail");
     }
     #endregion
 }
