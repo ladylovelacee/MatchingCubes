@@ -16,6 +16,7 @@ public class Collector : MonoBehaviour, IDamageable
 
     #region Private Field
     List<IStackable> stacks = new List<IStackable>();
+    int matchCount = 0;
     #endregion
 
     #region Methods From Monobehaviour
@@ -118,6 +119,23 @@ public class Collector : MonoBehaviour, IDamageable
             RemoveCollectible(stack);
             Destroy(stack.StackTransform.gameObject);
         }
+
+        IncreaseMatchCount();
+    }
+
+    private void IncreaseMatchCount()
+    {
+        matchCount++;
+
+        if (matchCount >= Character.CharacterData.MatchCountToFever)
+        {
+            GameManager.Instance.GameData.IsFeverModeActive = true;
+            matchCount = 0;
+            this.Wait(GameManager.Instance.GameData.FeverTimer, () =>
+            {
+                GameManager.Instance.GameData.IsFeverModeActive = false;
+            });
+        }
     }
 
     private void OrderById()
@@ -158,6 +176,9 @@ public class Collector : MonoBehaviour, IDamageable
     #region Methods From Interfaces
     public void TakeDamage()
     {
+        if (GameManager.Instance.GameData.IsFeverModeActive)
+            return;
+
         if (!stacks.Any())
         {
             LevelManager.Instance.ReloadLevel();

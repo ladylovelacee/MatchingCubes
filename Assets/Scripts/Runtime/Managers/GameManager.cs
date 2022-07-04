@@ -3,8 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public float FeverTimer;
-    public float SpeederTimer = 5;
+    public bool IsFeverModeActive = false;
+    public float FeverTimer = 3;
+    public float SpeederTimer = 3;
     public Transform Mover;
 }
 
