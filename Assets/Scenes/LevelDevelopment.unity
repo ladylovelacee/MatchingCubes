@@ -2376,6 +2376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LavObstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 6811666080078552118, guid: 00f9618cd4db3ad47ab7386d53d20148, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f9618cd4db3ad47ab7386d53d20148, type: 3}
 --- !u!1001 &8293500091691272441

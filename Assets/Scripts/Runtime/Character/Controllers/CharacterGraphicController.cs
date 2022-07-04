@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterGraphicController : MonoBehaviour
+public class CharacterGraphicController : MonoBehaviour, IMeltable
 {
     Character _character;
     Character Character => (_character == null) ? _character = GetComponentInParent<Character>() : _character;
@@ -18,5 +18,10 @@ public class CharacterGraphicController : MonoBehaviour
     private void MoveUp(IStackable stack)
     {
         transform.position += (Vector3.up * stack.StackSize.y);
+    }
+
+    public void Melt()
+    {
+        LevelManager.Instance.ReloadLevel();
     }
 }
