@@ -1208,10 +1208,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1213689793}
-  - {fileID: 1008973139928001557}
-  - {fileID: 1086996774}
   - {fileID: 1953522844}
   - {fileID: 1929376461}
+  - {fileID: 1008973139928001557}
+  - {fileID: 1086996774}
   m_Father: {fileID: 726200086}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1583,7 +1583,7 @@ Transform:
   - {fileID: 2115627320}
   - {fileID: 407066468}
   m_Father: {fileID: 1154573046}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1953522843
 GameObject:
@@ -1616,7 +1616,7 @@ Transform:
   - {fileID: 1868291334}
   - {fileID: 1476020510}
   m_Father: {fileID: 1154573046}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2115627320 stripped
 Transform:
@@ -1645,11 +1645,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1087498532874580820, guid: 494a5edfb446fc34c9617ab6831c0c2a, type: 3}
       propertyPath: deltaThreshold
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1087498532874580820, guid: 494a5edfb446fc34c9617ab6831c0c2a, type: 3}
       propertyPath: sensitivityMultiplier
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1087498532874580821, guid: 494a5edfb446fc34c9617ab6831c0c2a, type: 3}
       propertyPath: m_RootOrder
