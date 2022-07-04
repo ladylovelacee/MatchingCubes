@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LevelStartPanel : MonoBehaviour
+public class LevelStartPanel : Panel
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        if (Managers.Instance == null)
+            return;
+
+        LevelManager.Instance.OnLevelStart.AddListener(HidePanel);
+        LevelManager.Instance.OnLevelFinish.AddListener(ShowPanel);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        if (Managers.Instance == null)
+            return;
+
+        LevelManager.Instance.OnLevelStart.RemoveListener(HidePanel);
+        LevelManager.Instance.OnLevelFinish.RemoveListener(ShowPanel);
     }
 }
