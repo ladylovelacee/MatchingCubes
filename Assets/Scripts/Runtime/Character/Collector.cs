@@ -43,7 +43,7 @@ public class Collector : MonoBehaviour, IDamageable
         stacks.Add(stack);
         Character.OnStackCollected.Invoke(stack);
         Character.OnLastStackUpdate.Invoke(stack);
-        CheckLastTriple();
+        CheckLastTriple(stacks);
     }
 
     public void RemoveCollectible(IStackable stack)
@@ -84,7 +84,7 @@ public class Collector : MonoBehaviour, IDamageable
     }
 
     private const int MATCH_COUNT = 3;
-    private void CheckLastTriple()
+    private void CheckLastTriple(List<IStackable> stacks)
     {
         int stackCount = stacks.Count;
         if (stacks.Count < MATCH_COUNT)
@@ -106,9 +106,11 @@ public class Collector : MonoBehaviour, IDamageable
     }
     private void CheckAllTriples()
     {
-        for (int i = 0; i < stacks.Count; i++)
+        List<IStackable> temp = new List<IStackable>(stacks);
+        for (int i = 0; i < temp.Count; i++)
         {
-            CheckLastTriple();
+            CheckLastTriple(temp);
+            temp.Remove(temp.Last());
         }
     }
 
