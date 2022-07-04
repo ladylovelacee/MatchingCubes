@@ -17,6 +17,12 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
+        if (Managers.Instance == null)
+            return;
+
+        if (!LevelManager.Instance.IsLevelStarted)
+            return;
+
         HandleMovementWithSlide();
     }
 
